@@ -32,11 +32,13 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy to Kubernetes') {
+        
+        stage('Run Container') {
             steps {
-                sh 'kubectl apply -f kubernetes.yaml'
+                sh 'docker run -d -p 8082:8081 --name bookmanagement-app-container ${DOCKER_IMAGE}:${DOCKER_TAG}'
             }
         }
+       
     }
+
 }
